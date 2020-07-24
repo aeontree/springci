@@ -13,9 +13,9 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage('Maven Package') {
             steps {
-                build()
+                mavenPackage()
             }
         }
     }
@@ -26,7 +26,7 @@ pipeline {
     }
 }
 
-def build() {
+def mavenPackage() {
     def maven_build="mvn clean package"
     sh(script: maven_build)
 }
