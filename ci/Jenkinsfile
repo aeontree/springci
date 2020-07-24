@@ -6,11 +6,16 @@ pipeline {
         disableConcurrentBuilds()
     }
     stages {
-        stage('Run Command') {
+        stage('Run CLI Command') {
             steps {
                 script {
                     println "Running build"
                 }
+            }
+        }
+        stage('Build') {
+            steps {
+                build()
             }
         }
     }
@@ -19,4 +24,9 @@ pipeline {
             cleanWs()
         }
     }
+}
+
+def build() {
+    def maven_build="mvn clean package"
+    sh(script: maven_build)
 }
