@@ -1,6 +1,10 @@
 pipeline {
     agent {
         label 'DockerAgents'
+        docker {
+            image 'maven:3-alpine'
+            args '-v maven_repository:/root/.m2'
+        }
     }
     options {
         disableConcurrentBuilds()
