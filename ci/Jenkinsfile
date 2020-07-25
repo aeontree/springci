@@ -1,8 +1,7 @@
 pipeline {
     agent {
-        label 'DockerAgents'
         docker {
-            image 'maven:3-alpine'
+            image 'dockeragentmvn:latest'
             args '-v maven_repository:/root/.m2'
         }
     }
