@@ -1,6 +1,7 @@
 pipeline {
     agent {
         docker {
+            image 'dockeragentmvn:latest'
             label 'DockerAgents'
             args '-v maven_repository:/root/.m2'
         }
