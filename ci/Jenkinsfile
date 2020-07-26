@@ -28,11 +28,6 @@ pipeline {
             }
         }
     }
-#    post {
-#        always {
-#            cleanWs()
-#        }
-#    }
 }
 
 def mavenPackage() {
