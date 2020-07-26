@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        label 'DockerAgents'
+        docker {
+            label 'DockerAgents'
+            args '-v maven_repository:/root/.m2'
+        }
     }
     options {
         disableConcurrentBuilds()
@@ -16,6 +19,11 @@ pipeline {
         stage('Maven Package') {
             steps {
                 mavenPackage()
+            }
+        }
+        stage('List Maven Repository Contents') {
+            steps {
+                sh 'ls /root/.m2'
             }
         }
     }
