@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            label 'DockerAgents'
+            args '-v maven_m2:/root/.m2'
+        }
+    }
     stages {
         stage('Run CLI Command') {
             steps {
