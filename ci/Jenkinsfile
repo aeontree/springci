@@ -18,6 +18,11 @@ pipeline {
                 mavenPackage()
             }
         }
+        stage('Sonar') {
+            steps {
+                sh "mvn sonar:sonar -Dsonar.host.url=localhost:13004"
+            }
+        }
     }
     post {
         always {
