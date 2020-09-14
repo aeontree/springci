@@ -1,10 +1,9 @@
 pipeline {
     agent {
-        docker {
-            image 'dockeragentmvn'
-            label 'DockerAgents'
-            args '-v maven_m2:/root/.m2'
-        }
+        label 'DockerAgents'
+    }
+    options {
+        disableConcurrentBuilds()
     }
     stages {
         stage('Run CLI Command') {
@@ -19,10 +18,15 @@ pipeline {
                 mavenPackage()
             }
         }
-        stage('List Maven Repository Contents') {
+        stage('Sonar') {
             steps {
-                sh 'ls /root/.m2'
+                sh "mvn sonar:sonar -Dsonar.host.url=http://localhost:13004"
             }
+        }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
