@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'DockerAgents'
     }
+    environment {
+        SONARQUBETOKEN = credentials('SonarQube')
+    }
     options {
         disableConcurrentBuilds()
     }
@@ -20,7 +23,10 @@ pipeline {
         }
         stage('Sonar') {
             steps {
-                sh "mvn sonar:sonar -Dsonar.host.url=http://localhost:13004"
+                sh "mvn sonar:sonar \
+                      -Dsonar.projectKey=com.aeontree.springci \
+                      -Dsonar.host.url=http://localhost:13004 \
+                      -Dsonar.login=$SONARQUBETOKEN"
             }
         }
     }
