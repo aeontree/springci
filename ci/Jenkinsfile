@@ -3,7 +3,7 @@ pipeline {
         label 'DockerAgents'
     }
     environment {
-        SONARQUBETOKEN = credentials('SonarQube')
+        SONARQUBETOKEN = credentials('sonar-qube-token')
     }
     options {
         disableConcurrentBuilds()
