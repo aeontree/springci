@@ -30,8 +30,9 @@ pipeline {
             }
         }
         stage('Publish') {
-            nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'releases',
-            packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/target/springci-0.0.1-SNAPSHOT.jar']], mavenCoordinate: [artifactId: 'springci', groupId: 'com.andreilorin', packaging: 'jar', version: '0.0.1-SNAPSHOT']]]
+            steps {
+                nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/target/springci-0.0.1-SNAPSHOT.jar']], mavenCoordinate: [artifactId: 'springci', groupId: 'com.andreilorin', packaging: 'jar', version: '0.0.1-SNAPSHOT']]]
+            }
         }
     }
     post {
