@@ -25,7 +25,7 @@ pipeline {
             steps {
                 sh "mvn sonar:sonar \
                       -Dsonar.projectKey=com.aeontree.springci \
-                      -Dsonar.host.url=172.17.0.5:9000 \
+                      -Dsonar.host.url=172.19.0.3:9000 \
                       -Dsonar.login=$SONARQUBETOKEN"
             }
         }
