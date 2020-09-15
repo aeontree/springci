@@ -30,10 +30,10 @@ pipeline {
             }
         }
         stage('Publish to Artifactory') {
-            withCredentials([usernamePassword(credentialsId: 'artifactory-pass', usernameVariable: 'username', passwordVariable: 'password')])
-                steps {
-                    sh "mvn deploy -DskipTests -DaltDeploymentRepository=com.aeontree::default::http://localhost:13006/artifactory/generic-local/"
-                }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'artifactory-pass', usernameVariable: 'username', passwordVariable: 'password')])
+                sh "mvn deploy -DskipTests -DaltDeploymentRepository=com.aeontree::default::http://localhost:13006/artifactory/generic-local/"
+            }
         }
         //stage('Publish to Nexus') {
             //steps {
