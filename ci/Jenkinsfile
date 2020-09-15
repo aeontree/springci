@@ -29,11 +29,17 @@ pipeline {
                       -Dsonar.login=$SONARQUBETOKEN"
             }
         }
-        stage('Publish') {
-            steps {
-                nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'localartifacts', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/springci-0.0.1-SNAPSHOT.jar']], mavenCoordinate: [artifactId: 'springci', groupId: 'com.andreilorin', packaging: 'jar', version: '0.0.1-SNAPSHOT']]]
-            }
+        stage('Publish to Artifactory') {
+            withCredentials([usernamePassword(credentialsId: 'artifactory-pass', usernameVariable: 'username', passwordVariable: 'password')])
+                steps {
+                    sh "mvn deploy -DskipTests -DaltDeploymentRepository=com.aeontree::default::http://localhost:13006/artifactory/generic-local/"
+                }
         }
+        //stage('Publish to Nexus') {
+            //steps {
+                //nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'localartifacts', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/springci-0.0.1-SNAPSHOT.jar']], mavenCoordinate: [artifactId: 'springci', groupId: 'com.andreilorin', packaging: 'jar', version: '0.0.1-SNAPSHOT']]]
+            //}
+        //}
     }
     post {
         always {
